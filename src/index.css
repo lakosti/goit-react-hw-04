@@ -15,7 +15,8 @@ button {
   cursor: pointer;
 }
 ul,
-ol {
+ol,
+body {
   margin: 0;
   padding: 0;
 }
