@@ -1,6 +1,7 @@
 .formWrap {
+  margin-bottom: 20px;
   padding: 30px;
-  width: 100%;
+  /* width: 100%; */
   background-color: rgb(10, 10, 138);
   box-shadow: 1px 10px 9px 0px rgba(163, 160, 163, 0.52);
 }
