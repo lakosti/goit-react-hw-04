@@ -1,7 +1,7 @@
-const GalleryImgItem = ({ items }) => {
+const GalleryImgItem = ({ data }) => {
   return (
     <div>
-      <img src={items.urls.small} width={300} />
+      <img src={data.urls.small} width={300} />
     </div>
   );
 };

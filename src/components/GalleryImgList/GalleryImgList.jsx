@@ -9,7 +9,7 @@ const GalleryImgList = ({ items = null }) => {
         items.map((item) => {
           return (
             <li key={item.id} className={css.galleryItem}>
-              <GalleryImgItem items={item} />
+              <GalleryImgItem data={item} />
             </li>
           );
         })}

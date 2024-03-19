@@ -11,7 +11,7 @@ const SearchBar = ({ onSetSearchQuery }) => {
       <Formik
         initialValues={{ query: "" }}
         onSubmit={(values) => {
-          if (values.query === "") {
+          if (values.query.trim() === "") {
             notify();
           }
           onSetSearchQuery(values.query);
