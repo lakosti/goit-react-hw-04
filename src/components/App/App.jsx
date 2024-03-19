@@ -3,24 +3,30 @@ import SearchBar from "../SearchBar/SearchBar";
 import "./App.module.css";
 import { requestProduct } from "../services/api";
 import GalleryImgList from "../GalleryImgList/GalleryImgList";
+import Loader from "../Loader/Loader";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 function App() {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(null);
   const [searchQuery, SetSearchQuery] = useState(null);
-  // const [isLoading, setIsLoading] = useState(false);
-  //   const [errMsg, setErrMsg] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     if (searchQuery === null) return;
 
     async function fetchDataByQuery() {
       try {
+        setIsLoading(true);
+        setIsError(false);
+
         const data = await requestProduct(searchQuery);
 
-        console.log(data);
         setItems(data.results);
       } catch (err) {
-        console.log(err);
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchDataByQuery();
@@ -35,6 +41,8 @@ function App() {
     <>
       <SearchBar onSetSearchQuery={onSetSearchQuery} />
       <GalleryImgList items={items} />
+      {isLoading && <Loader />}
+      {isError && <ErrorMessage />}
     </>
   );
 }
