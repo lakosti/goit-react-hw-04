@@ -1,6 +1,9 @@
 import { Field, Form, Formik } from "formik";
 import { IoIosSearch } from "react-icons/io";
 import css from "./SearchBar.module.css";
+import toast, { Toaster } from "react-hot-toast";
+
+const notify = () => toast.error("Please enter something");
 
 const SearchBar = ({ onSetSearchQuery }) => {
   return (
@@ -8,6 +11,9 @@ const SearchBar = ({ onSetSearchQuery }) => {
       <Formik
         initialValues={{ query: "" }}
         onSubmit={(values) => {
+          if (values.query === "") {
+            notify();
+          }
           onSetSearchQuery(values.query);
         }}
       >
@@ -17,11 +23,14 @@ const SearchBar = ({ onSetSearchQuery }) => {
               className={css.fromSeacrhInput}
               type="text"
               name="query"
+              autoComplete="off"
+              autoFocus
               placeholder="Search images and photos"
             />
             <button className={css.fromSeacrhBtn} type="submit">
               <IoIosSearch />
             </button>
+            <Toaster position="bottom-center" />
           </div>
         </Form>
       </Formik>
