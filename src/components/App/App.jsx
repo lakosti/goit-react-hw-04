@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import SearchBar from "../SearchBar/SearchBar";
-import "./App.module.css";
 import { requestProduct } from "../services/api";
+import { LoadMoreBtn } from "../LoadMoreBtn/LoadMoreBtn";
+import SearchBar from "../SearchBar/SearchBar";
 import GalleryImgList from "../GalleryImgList/GalleryImgList";
 import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
-import { LoadMoreBtn } from "../LoadMoreBtn/LoadMoreBtn";
 import toast from "react-hot-toast";
-
+import "./App.module.css";
 const notify = () => toast.error("Not matching results ");
 
 function App() {
