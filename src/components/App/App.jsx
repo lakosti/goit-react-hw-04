@@ -13,7 +13,6 @@ const notify = () => toast.error("Not matching results ");
 function App() {
   const [items, setItems] = useState(null);
   const [searchQuery, SetSearchQuery] = useState(null);
-  // const [disabled, setDisabled] = useState(false);
   const [loadMore, setLoadMore] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
