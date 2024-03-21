@@ -13,9 +13,10 @@ const notify = () => toast.error("Not matching results ");
 function App() {
   const [items, setItems] = useState(null);
   const [searchQuery, SetSearchQuery] = useState(null);
+  // const [disabled, setDisabled] = useState(false);
   const [loadMore, setLoadMore] = useState(false);
-  const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [page, setPage] = useState(1);
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
@@ -31,11 +32,10 @@ function App() {
           notify();
         }
 
-        setLoadMore(data.total_pages > page);
-
         setItems((prevState) => {
           return [...prevState, ...data.results];
         });
+        setLoadMore(data.total_pages > page);
       } catch (err) {
         setIsError(true);
       } finally {
@@ -53,17 +53,21 @@ function App() {
     setItems([]);
   };
   const loadMoreItems = () => {
-    setIsLoading(true);
     setPage((prevState) => prevState + 1);
-    setIsLoading(false);
   };
   return (
     <>
       <SearchBar onSetSearchQuery={onSetSearchQuery} />
       <GalleryImgList items={items} />
-      {isLoading && <Loader />}
       {isError && <ErrorMessage />}
-      {loadMore && <LoadMoreBtn loadMoreItems={loadMoreItems} />}
+      {loadMore && (
+        <LoadMoreBtn
+          loadMoreItems={loadMoreItems}
+          isLoading={isLoading}
+          loadMore={isLoading}
+        ></LoadMoreBtn>
+      )}
+      {isLoading && <Loader />}
     </>
   );
 }
