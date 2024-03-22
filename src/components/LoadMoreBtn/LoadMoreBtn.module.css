@@ -1,0 +1,11 @@
+.loadMoreBtn {
+  padding: 10px;
+  display: block;
+  margin: 0 auto;
+  background-color: blue;
+  border: none;
+  color: white;
+}
+.loadMoreBtn:disabled {
+  background-color: rgb(91, 91, 91);
+}

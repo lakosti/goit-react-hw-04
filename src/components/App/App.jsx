@@ -45,6 +45,7 @@ function App() {
 
   const onSetSearchQuery = (query) => {
     SetSearchQuery(query);
+    setIsLoading(false);
     setLoadMore(false);
     setPage(1);
     setIsError(false);
