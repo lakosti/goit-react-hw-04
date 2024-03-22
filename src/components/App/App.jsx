@@ -7,6 +7,8 @@ import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import toast from "react-hot-toast";
 import "./App.module.css";
+import ImageModal from "../ImageModal/ImageModal";
+
 const notify = () => toast.error("Not matching results ");
 
 function App() {
@@ -16,6 +18,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [isError, setIsError] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [url, setUrl] = useState("");
+  const [alt, setAlt] = useState("");
 
   useEffect(() => {
     if (searchQuery === null) return;
@@ -54,10 +59,21 @@ function App() {
   const loadMoreItems = () => {
     setPage((prevState) => prevState + 1);
   };
+
+  const openModal = (url, alt) => {
+    setIsModalOpen(true);
+    setAlt(alt);
+    setUrl(url);
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setAlt("");
+    setUrl("");
+  };
   return (
     <>
       <SearchBar onSetSearchQuery={onSetSearchQuery} />
-      <GalleryImgList items={items} />
+      <GalleryImgList openModal={openModal} items={items} />
       {isError && <ErrorMessage />}
       {loadMore && (
         <LoadMoreBtn
@@ -67,6 +83,7 @@ function App() {
         ></LoadMoreBtn>
       )}
       {isLoading && <Loader />}
+      <ImageModal isModalOpen={isModalOpen} src={url} alt={alt} closeModal={closeModal} />
     </>
   );
 }
