@@ -8,11 +8,14 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    width: "25%",
-    heigth: "50%",
+    width: "500px",
+    background: "none",
+    border: "none",
+    padding: 0,
+    overflow: "hidden",
   },
   overlay: {
-    backgroundColor: "#142a39db",
+    backgroundColor: "rgba(20, 42, 57, 0.858)",
   },
 };
 
