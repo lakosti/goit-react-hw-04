@@ -1,7 +1,7 @@
-import GalleryImgItem from "../GalleryImgItem/GalleryImgItem";
-import css from "./GalleryImgList.module.css";
+import ImageCard from "../ImageCard/ImageCard";
+import css from "./ImageGallery.module.css";
 
-const GalleryImgList = ({ items = null, openModal }) => {
+const ImageGallery = ({ items = null, openModal }) => {
   return (
     <ul className={css.galleryList}>
       {items !== null &&
@@ -9,7 +9,7 @@ const GalleryImgList = ({ items = null, openModal }) => {
         items.map((item) => {
           return (
             <li key={item.id} className={css.galleryItem}>
-              <GalleryImgItem
+              <ImageCard
                 data={item}
                 alt={item.alt_description}
                 src={item.urls}
@@ -22,4 +22,4 @@ const GalleryImgList = ({ items = null, openModal }) => {
   );
 };
 
-export default GalleryImgList;
+export default ImageGallery;

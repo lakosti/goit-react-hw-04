@@ -2,19 +2,19 @@ import { useEffect, useState } from "react";
 import { requestProduct } from "../services/api";
 import { LoadMoreBtn } from "../LoadMoreBtn/LoadMoreBtn";
 import SearchBar from "../SearchBar/SearchBar";
-import GalleryImgList from "../GalleryImgList/GalleryImgList";
 import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import toast from "react-hot-toast";
 import "./App.module.css";
 import ImageModal from "../ImageModal/ImageModal";
+import ImageGallery from "../ImageGallery/ImageGallery";
 
 const notify = () => toast.error("Not matching results ");
 
 function App() {
   const [items, setItems] = useState(null);
-  const [searchQuery, SetSearchQuery] = useState(null);
-  const [loadMore, setLoadMore] = useState(false);
+  const [searchQuery, SetSearchQuery] = useState("");
+  const [btnLoadMore, setBtnLoadMore] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [isError, setIsError] = useState(false);
@@ -23,7 +23,9 @@ function App() {
   const [alt, setAlt] = useState("");
 
   useEffect(() => {
-    if (searchQuery === null) return;
+    if (searchQuery === "") {
+      return;
+    }
 
     async function fetchDataByQuery() {
       try {
@@ -38,7 +40,7 @@ function App() {
         setItems((prevState) => {
           return [...prevState, ...data.results];
         });
-        setLoadMore(data.total_pages > page);
+        setBtnLoadMore(data.total_pages > page);
       } catch (err) {
         setIsError(true);
       } finally {
@@ -51,7 +53,7 @@ function App() {
   const onSetSearchQuery = (query) => {
     SetSearchQuery(query);
     setIsLoading(false);
-    setLoadMore(false);
+    setBtnLoadMore(false);
     setPage(1);
     setIsError(false);
     setItems([]);
@@ -73,14 +75,10 @@ function App() {
   return (
     <>
       <SearchBar onSetSearchQuery={onSetSearchQuery} />
-      <GalleryImgList openModal={openModal} items={items} />
+      <ImageGallery openModal={openModal} items={items} />
       {isError && <ErrorMessage />}
-      {loadMore && (
-        <LoadMoreBtn
-          loadMoreItems={loadMoreItems}
-          isLoading={isLoading}
-          loadMore={isLoading}
-        ></LoadMoreBtn>
+      {btnLoadMore && (
+        <LoadMoreBtn handleMoreItems={loadMoreItems} disabled={isLoading}></LoadMoreBtn>
       )}
       {isLoading && <Loader />}
       <ImageModal isModalOpen={isModalOpen} src={url} alt={alt} closeModal={closeModal} />

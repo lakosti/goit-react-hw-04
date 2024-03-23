@@ -1,6 +1,6 @@
-import css from "./GalleryImgItem.module.css";
+import css from "./ImageCard.module.css";
 
-const GalleryImgItem = ({ alt, src, modalOpen }) => {
+const ImageCard = ({ alt, src, modalOpen }) => {
   return (
     <div className={css.imgWrap} onClick={() => modalOpen(src.regular, alt)}>
       <img className={css.imgItem} src={src.small} alt={alt} width={300} />
@@ -8,4 +8,4 @@ const GalleryImgItem = ({ alt, src, modalOpen }) => {
   );
 };
 
-export default GalleryImgItem;
+export default ImageCard;
